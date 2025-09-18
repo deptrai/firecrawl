@@ -48,7 +48,7 @@ services:
       timeout: 10s
       retries: 3
 
-  api:
+  web:
     image: ghcr.io/mendableai/firecrawl:latest
     container_name: firecrawl-api
     restart: unless-stopped
@@ -103,8 +103,8 @@ services:
       - "traefik.http.routers.firecrawl.rule=Host(`${FIRECRAWL_DOMAIN:-firecrawl.example.com}`)"
       - "traefik.http.routers.firecrawl.entrypoints=websecure"
       - "traefik.http.routers.firecrawl.tls.certresolver=letsencrypt"
-      - "traefik.http.services.firecrawl.loadbalancer.server.port=3002"
-      - "traefik.http.routers.firecrawl.service=firecrawl"
+      - "traefik.http.services.web.loadbalancer.server.port=3002"
+      - "traefik.http.routers.firecrawl.service=web"
 
 volumes:
   redis_data:
